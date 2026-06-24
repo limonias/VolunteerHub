@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dobrodiy — Verification</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
+        <div class="logo-text"><strong>Dobrodiy</strong><span>Volunteer together</span></div>
+      </div>
+      <nav class="stepper" aria-label="Progress">
+        <div class="step-item completed"><span class="step-number">1</span><span class="step-label">Role</span></div>
+        <div class="step-line"></div>
+        <div class="step-item completed"><span class="step-number">2</span><span class="step-label">Details</span></div>
+        <div class="step-line"></div>
+        <div class="step-item active"><span class="step-number">3</span><span class="step-label">Verify</span></div>
+        <div class="step-line"></div>
+        <div class="step-item"><span class="step-number">4</span><span class="step-label">Profile</span></div>
+      </nav>
+    </header>
+
+    <main class="card-container">
+      <section id="page-verify" class="wizard-page active">
+        <div class="welcome-icon-wrap">
+          <div class="sparkle-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+        </div>
+        <h2>Enter verification code</h2>
+        <p class="subtitle">We sent a 6-digit code to your email. It expires in 10 minutes.</p>
+
+        <form action="profile.html" method="get">
+          <div class="otp-container">
+            <input type="text" inputmode="numeric" maxlength="1" required />
+            <input type="text" inputmode="numeric" maxlength="1" required />
+            <input type="text" inputmode="numeric" maxlength="1" required />
+            <input type="text" inputmode="numeric" maxlength="1" required />
+            <input type="text" inputmode="numeric" maxlength="1" required />
+            <input type="text" inputmode="numeric" maxlength="1" required />
+          </div>
+          <button type="submit" class="btn-primary btn-full">Verify</button>
+          <div class="otp-resend-wrap"><a href="#" class="resend-link">Didn't get the code? Resend</a></div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Автофокус на наступну клітинку при вводі цифри
+    const inputs = document.querySelectorAll('.otp-container input');
+    inputs.forEach((input, idx) => {
+      input.addEventListener('input', (e) => {
+        if (e.target.value.length === 1 && idx < inputs.length - 1) inputs[idx + 1].focus();
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dobrodiy — Profile Setup</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
+        <div class="logo-text"><strong>Dobrodiy</strong><span>Volunteer together</span></div>
+      </div>
+      <nav class="stepper" aria-label="Progress">
+        <div class="step-item completed"><span class="step-number">1</span><span class="step-label">Role</span></div>
+        <div class="step-line"></div>
+        <div class="step-item completed"><span class="step-number">2</span><span class="step-label">Details</span></div>
+        <div class="step-line"></div>
+        <div class="step-item completed"><span class="step-number">3</span><span class="step-label">Verify</span></div>
+        <div class="step-line"></div>
+        <div class="step-item active"><span class="step-number">4</span><span class="step-label">Profile</span></div>
+      </nav>
+    </header>
+
+    <main class="card-container">
+      <section id="page-profile" class="wizard-page active">
+        <h2>Tell us about your interests</h2>
+        <p class="subtitle">We'll match you with charities that need your help.</p>
+
+        <form action="done.html" method="get">
+          <div class="input-group single-col-input">
+            <label for="city">Your city</label>
+            <input list="city-list" id="city" placeholder="Search for your city" required />
+            <datalist id="city-list">
+              <option value="Kyiv"><option value="Lviv"><option value="Odesa"><option value="Kharkiv"><option value="Dnipro">
+            </datalist>
+          </div>
+
+          <label class="field-section-label">Volunteering interests</label>
+          <div class="interests-grid">
+            <label class="interest-item"><input type="checkbox" name="interests" /> <span>Ecology</span></label>
+            <label class="interest-item"><input type="checkbox" name="interests" /> <span>Animals</span></label>
+            <label class="interest-item"><input type="checkbox" name="interests" /> <span>Elderly care</span></label>
+            <label class="interest-item"><input type="checkbox" name="interests" /> <span>Education</span></label>
+            <label class="interest-item"><input type="checkbox" name="interests" /> <span>Healthcare</span></label>
+            <label class="interest-item"><input type="checkbox" name="interests" /> <span>Children</span></label>
+          </div>
+
+          <label class="field-section-label">Profile picture</label>
+          <div class="input-group single-col-input">
+            <input type="file" id="avatar" accept="image/jpeg,image/png" />
+            <small class="hint-text">Max size: 5MB · Format: JPG/PNG</small>
+          </div>
+
+          <div class="form-actions-right">
+            <button type="submit" class="btn-primary">Go to dashboard</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

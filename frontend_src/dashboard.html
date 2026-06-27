@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dobrodiy — Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-body">
+  <div class="app-container app-container--wide">
+
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        </div>
+        <div class="logo-text"><strong>Dobrodiy</strong><span>Volunteer together</span></div>
+      </div>
+
+      <nav class="dash-nav" aria-label="Main navigation">
+        <a href="dashboard.html" class="dash-nav-link active">Dashboard</a>
+        <a href="#" class="dash-nav-link">Opportunities</a>
+        <a href="#" class="dash-nav-link">Charities</a>
+      </nav>
+
+      <div class="user-menu">
+        <div class="user-menu-avatar" id="headerAvatar">?</div>
+        <span class="user-menu-name" id="headerName">Loading…</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--color-text-muted)"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+    </header>
+
+    <div class="dashboard-layout">
+
+      <!-- ===== PROFILE SIDEBAR ===== -->
+      <aside class="profile-sidebar">
+        <div class="profile-avatar-wrap">
+          <div class="profile-avatar" id="profileAvatar">?</div>
+        </div>
+        <div class="profile-name" id="profileName">—</div>
+        <div class="role-badge" id="roleBadge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          Volunteer
+        </div>
+
+        <div class="profile-divider"></div>
+
+        <div class="profile-meta">
+          <div class="profile-meta-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span id="profileCity">—</span>
+          </div>
+          <div class="profile-meta-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <span id="profileEmail">—</span>
+          </div>
+        </div>
+
+        <div class="profile-divider"></div>
+
+        <div class="interests-section">
+          <div class="interests-label">Interests</div>
+          <div class="interests-tags" id="interestsTags">
+            <span class="interest-tag interest-tag--empty">No interests added yet</span>
+          </div>
+        </div>
+
+        <a href="profile.html" class="btn-outline">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+          Edit profile
+        </a>
+        <a href="#" class="logout-link" id="logoutLink">Log out</a>
+      </aside>
+
+      <!-- ===== DASHBOARD MAIN ===== -->
+      <main class="dashboard-main">
+
+        <!-- Welcome banner -->
+        <div class="welcome-section">
+          <h2 class="welcome-heading">
+            <span id="greetingText">Good morning</span>, <span class="text-highlight" id="welcomeName">Volunteer</span>! 👋
+          </h2>
+          <p class="welcome-sub">Here are your matched opportunities and recent updates.</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="stat-value">0</div>
+            <div class="stat-label">Volunteer hours</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M4 21V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v15M9 11h2m-2 4h2m4-4h2m-4 4h2"/></svg>
+            </div>
+            <div class="stat-value">3</div>
+            <div class="stat-label">Matched charities</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            </div>
+            <div class="stat-value">0</div>
+            <div class="stat-label">Upcoming events</div>
+          </div>
+        </div>
+
+        <!-- Matched opportunities -->
+        <div class="section-header">
+          <h3 class="section-title">Matched for you</h3>
+          <a href="#" class="see-all-link">See all →</a>
+        </div>
+        <div class="opportunity-grid">
+
+          <div class="opportunity-card">
+            <div class="opportunity-card-header">
+              <span class="opportunity-org">Dobro Foundation</span>
+              <span class="match-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+                94% match
+              </span>
+            </div>
+            <div class="opportunity-title">Animal shelter weekend volunteer day</div>
+            <div class="opportunity-tags">
+              <span class="tag-pill">Animals</span>
+              <span class="tag-pill">Weekend</span>
+              <span class="tag-pill">Kyiv</span>
+            </div>
+            <div class="opportunity-footer">
+              <span class="opportunity-date">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                July 5, 2026
+              </span>
+              <a href="#" class="btn-apply">Apply →</a>
+            </div>
+          </div>
+
+          <div class="opportunity-card">
+            <div class="opportunity-card-header">
+              <span class="opportunity-org">Green Ukraine NGO</span>
+              <span class="match-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+                88% match
+              </span>
+            </div>
+            <div class="opportunity-title">City park cleanup — Holosiivskyi district</div>
+            <div class="opportunity-tags">
+              <span class="tag-pill">Ecology</span>
+              <span class="tag-pill">Outdoor</span>
+              <span class="tag-pill">Kyiv</span>
+            </div>
+            <div class="opportunity-footer">
+              <span class="opportunity-date">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                July 12, 2026
+              </span>
+              <a href="#" class="btn-apply">Apply →</a>
+            </div>
+          </div>
+
+          <div class="opportunity-card">
+            <div class="opportunity-card-header">
+              <span class="opportunity-org">Bright Kids Foundation</span>
+              <span class="match-badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+                81% match
+              </span>
+            </div>
+            <div class="opportunity-title">After-school tutoring for displaced children</div>
+            <div class="opportunity-tags">
+              <span class="tag-pill">Education</span>
+              <span class="tag-pill">Children</span>
+              <span class="tag-pill">Remote</span>
+            </div>
+            <div class="opportunity-footer">
+              <span class="opportunity-date">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                Ongoing
+              </span>
+              <a href="#" class="btn-apply">Apply →</a>
+            </div>
+          </div>
+
+          <div class="opportunity-card opportunity-card--locked">
+            <div class="opportunity-card-header">
+              <span class="opportunity-org">Care for Elderly UA</span>
+              <span class="locked-badge">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                1 more event to unlock
+              </span>
+            </div>
+            <div class="opportunity-title opportunity-title--muted">Weekend visits to nursing home</div>
+            <div class="opportunity-tags">
+              <span class="tag-pill">Elderly care</span>
+              <span class="tag-pill">Lviv</span>
+            </div>
+            <div class="opportunity-footer">
+              <span class="opportunity-date opportunity-date--muted">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                August 2, 2026
+              </span>
+              <span class="btn-apply btn-apply--disabled">Locked</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Activity empty state -->
+        <div class="section-header">
+          <h3 class="section-title">Your activity</h3>
+        </div>
+        <div class="empty-state">
+          <div class="empty-state-icon">🌱</div>
+          <div class="empty-state-title">No activity yet</div>
+          <p class="empty-state-text">Apply to your first event above and start building your impact story.</p>
+          <a href="#" class="btn-primary" style="margin-top:8px">Browse all opportunities</a>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const stored = JSON.parse(localStorage.getItem('dobrodiy_user') || '{}');
+
+    if (!stored.userId) {
+      window.location.href = 'index.html';
+    }
+
+    document.getElementById('logoutLink').addEventListener('click', function (e) {
+      e.preventDefault();
+      localStorage.removeItem('dobrodiy_user');
+      window.location.href = 'index.html';
+    });
+
+    const h = new Date().getHours();
+    document.getElementById('greetingText').textContent =
+      h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
+
+    fetch('/api/profile/' + stored.userId)
+      .then(r => {
+        if (!r.ok) throw new Error('not_found');
+        return r.json();
+      })
+      .then(d => {
+        const isCharity  = d.role === 'charity';
+        const firstName  = d.first_name || '';
+        const surname    = d.surname    || '';
+        const fullName   = isCharity
+          ? (d.charity && d.charity.org_name ? d.charity.org_name : d.email)
+          : [firstName, surname].filter(Boolean).join(' ') || d.email;
+        const initials   = isCharity
+          ? (fullName[0] || '?').toUpperCase()
+          : ((firstName[0] || '') + (surname[0] || '')).toUpperCase() || '?';
+        const displayFirst = isCharity ? fullName : (firstName || d.email);
+
+        /* Avatar */
+        const avatarEl  = document.getElementById('profileAvatar');
+        const headerAv  = document.getElementById('headerAvatar');
+        const avatarUrl = isCharity
+          ? (d.charity && d.charity.logo ? d.charity.logo : null)
+          : d.avatar;
+
+        if (avatarUrl) {
+          const img = document.createElement('img');
+          img.src = avatarUrl;
+          img.alt = 'Avatar';
+          img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:inherit';
+          avatarEl.textContent = '';
+          avatarEl.appendChild(img);
+          headerAv.textContent = '';
+          const img2 = img.cloneNode();
+          headerAv.appendChild(img2);
+        } else {
+          avatarEl.textContent = initials;
+          headerAv.textContent = initials;
+        }
+
+        /* Text fields */
+        document.getElementById('profileName').textContent  = fullName;
+        document.getElementById('headerName').textContent   = displayFirst;
+        document.getElementById('welcomeName').textContent  = displayFirst;
+        document.getElementById('profileEmail').textContent = d.email || '—';
+        document.getElementById('profileCity').textContent  = d.city  || '—';
+
+        /* Role badge */
+        const badge = document.getElementById('roleBadge');
+        if (isCharity) {
+          badge.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M4 21V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v15"/></svg> Charity`;
+        } else {
+          badge.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> Volunteer`;
+        }
+
+        /* Interests */
+        const tagsContainer = document.getElementById('interestsTags');
+        if (d.interests && d.interests.length) {
+          tagsContainer.innerHTML = d.interests
+            .map(i => `<span class="interest-tag">${i}</span>`).join('');
+        }
+
+        /* Stat counter animation */
+        setTimeout(() => {
+          document.querySelectorAll('.stat-value').forEach(el => {
+            const target = parseInt(el.textContent, 10);
+            if (!target) return;
+            let cur = 0;
+            const iv = setInterval(() => {
+              cur = Math.min(cur + 1, target);
+              el.textContent = cur;
+              if (cur >= target) clearInterval(iv);
+            }, 120);
+          });
+        }, 400);
+      })
+      .catch(err => {
+        if (err.message === 'not_found') {
+          localStorage.removeItem('dobrodiy_user');
+          window.location.href = 'index.html';
+        }
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dobrodiy — Profile Setup</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
+        <div class="logo-text"><strong>Dobrodiy</strong><span>Volunteer together</span></div>
+      </div>
+      <nav class="stepper" aria-label="Progress">
+        <div class="step-item completed"><span class="step-number">1</span><span class="step-label">Role</span></div>
+        <div class="step-line"></div>
+        <div class="step-item completed"><span class="step-number">2</span><span class="step-label">Details</span></div>
+        <div class="step-line"></div>
+        <div class="step-item completed"><span class="step-number">3</span><span class="step-label">Verify</span></div>
+        <div class="step-line"></div>
+        <div class="step-item active"><span class="step-number">4</span><span class="step-label">Profile</span></div>
+      </nav>
+    </header>
+
+    <main class="card-container">
+      <section id="page-profile" class="wizard-page active">
+        <h2>Tell us about your interests</h2>
+        <p class="subtitle">We'll match you with charities that need your help.</p>
+
+        <form id="profileForm">
+          <div class="input-group single-col-input">
+            <label>Your city</label>
+            <div class="custom-dropdown" id="cityDropdown">
+              <div class="custom-dropdown-trigger">
+                <svg class="dropdown-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <input type="text" class="dropdown-input" id="citySearchInput" placeholder="Search for your city" autocomplete="off" />
+                <svg class="dropdown-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+              </div>
+              <div class="custom-dropdown-list" id="cityOptionsList" role="listbox"></div>
+            </div>
+            <input type="hidden" id="city" />
+          </div>
+
+          <label class="field-section-label">Volunteering interests</label>
+          <div class="interests-grid">
+            <label class="interest-item"><input type="checkbox" name="interests" /> <span>Ecology</span></label>
+            <label class="interest-item"><input type="checkbox" name="interests" /> <span>Animals</span></label>
+            <label class="interest-item"><input type="checkbox" name="interests" /> <span>Elderly care</span></label>
+            <label class="interest-item"><input type="checkbox" name="interests" /> <span>Education</span></label>
+            <label class="interest-item"><input type="checkbox" name="interests" /> <span>Healthcare</span></label>
+            <label class="interest-item"><input type="checkbox" name="interests" /> <span>Children</span></label>
+          </div>
+
+          <label class="field-section-label">Profile picture</label>
+          <div class="avatar-upload-wrap single-col-input">
+            <div class="avatar-upload-zone" id="avatarZone" tabindex="0" role="button" aria-label="Upload profile photo">
+              <div class="avatar-placeholder" id="avatarPlaceholder">
+                <div class="avatar-placeholder-icon">
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                    <circle cx="12" cy="13" r="3"/>
+                  </svg>
+                </div>
+                <span class="avatar-placeholder-title">Upload photo</span>
+                <span class="avatar-placeholder-hint">Click or drag here<br>JPG / PNG · max 5 MB</span>
+              </div>
+              <img id="avatarPreviewImg" class="avatar-preview-img" src="" alt="Preview" />
+              <div class="avatar-overlay">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
+                  <circle cx="12" cy="13" r="3"/>
+                </svg>
+                <span>Change photo</span>
+              </div>
+              <input type="file" id="avatar" accept="image/jpeg,image/png" hidden />
+            </div>
+          </div>
+
+          <div id="profileFormError" class="form-error"></div><div class="form-actions-right">
+            <button type="submit" class="btn-primary">Go to dashboard</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+    <script>
+    /* ---- City dropdown ---- */
+    const CITIES = [
+      { name: 'Kyiv',            icon: '🏛' },
+      { name: 'Lviv',            icon: '🦁' },
+      { name: 'Odesa',           icon: '🌊' },
+      { name: 'Kharkiv',         icon: '🌆' },
+      { name: 'Dnipro',          icon: '🌉' },
+      { name: 'Zaporizhzhia',    icon: '⚡' },
+      { name: 'Vinnytsia',       icon: '🌿' },
+      { name: 'Poltava',         icon: '🏡' },
+      { name: 'Chernivtsi',      icon: '🌸' },
+      { name: 'Uzhhorod',        icon: '🏔' },
+      { name: 'Mykolaiv',        icon: '🚢' },
+      { name: 'Ivano-Frankivsk', icon: '⛰' },
+      { name: 'Ternopil',        icon: '🌾' },
+      { name: 'Sumy',            icon: '🌻' },
+      { name: 'Zhytomyr',        icon: '🌲' },
+    ];
+
+    const dropdown   = document.getElementById('cityDropdown');
+    const cityInput  = document.getElementById('citySearchInput');
+    const cityHidden = document.getElementById('city');
+    const cityList   = document.getElementById('cityOptionsList');
+
+    function renderCities(q) {
+      const q2 = (q || '').toLowerCase();
+      const hits = q2 ? CITIES.filter(c => c.name.toLowerCase().includes(q2)) : CITIES;
+      if (!hits.length) { cityList.innerHTML = '<div class="dropdown-empty">No cities found</div>'; return; }
+      cityList.innerHTML = hits.map(c =>
+        `<div class="dropdown-option" data-value="${c.name}" role="option">
+           <span class="dropdown-option-icon">${c.icon}</span><span>${c.name}</span>
+         </div>`
+      ).join('');
+      cityList.querySelectorAll('.dropdown-option').forEach(opt => {
+        opt.addEventListener('mousedown', e => {
+          e.preventDefault();
+          cityInput.value  = opt.dataset.value;
+          cityHidden.value = opt.dataset.value;
+          dropdown.classList.remove('open');
+        });
+      });
+    }
+
+    cityInput.addEventListener('focus', () => { dropdown.classList.add('open'); renderCities(cityInput.value); });
+    cityInput.addEventListener('input', () => { cityHidden.value = ''; renderCities(cityInput.value); });
+    document.addEventListener('click', e => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+        if (!cityHidden.value && cityInput.value) {
+          const m = CITIES.find(c => c.name.toLowerCase() === cityInput.value.toLowerCase());
+          if (m) cityHidden.value = m.name;
+        }
+      }
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') dropdown.classList.remove('open'); });
+
+    /* ---- Avatar upload ---- */
+    const zone        = document.getElementById('avatarZone');
+    const fileInput   = document.getElementById('avatar');
+    const previewImg  = document.getElementById('avatarPreviewImg');
+    const placeholder = document.getElementById('avatarPlaceholder');
+
+    function showPreview(file) {
+      if (!file || !file.type.startsWith('image/')) return;
+      previewImg.src = URL.createObjectURL(file);
+      previewImg.style.display = 'block';
+      placeholder.style.display = 'none';
+      zone.classList.add('has-image');
+    }
+
+    zone.addEventListener('click', () => fileInput.click());
+    zone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') fileInput.click(); });
+    fileInput.addEventListener('change', () => showPreview(fileInput.files[0]));
+    zone.addEventListener('dragover',  e => { e.preventDefault(); zone.classList.add('drag-over'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+    zone.addEventListener('drop', e => {
+      e.preventDefault();
+      zone.classList.remove('drag-over');
+      const file = e.dataTransfer.files[0];
+      if (file) {
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        fileInput.files = dt.files;
+        showPreview(file);
+      }
+    });
+
+    /* ---- Form submit → API ---- */
+    document.getElementById('profileForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const btn = this.querySelector('.btn-primary');
+      const errorEl = document.getElementById('profileFormError');
+      btn.disabled = true;
+      btn.textContent = 'Saving…';
+      if (errorEl) errorEl.classList.remove('visible');
+
+      try {
+        const user      = JSON.parse(localStorage.getItem('dobrodiy_user') || '{}');
+        const city      = cityHidden.value || cityInput.value;
+        const interests = [...document.querySelectorAll('input[name="interests"]:checked')]
+                           .map(cb => cb.closest('.interest-item').querySelector('span').textContent.trim());
+
+        const fd = new FormData();
+        fd.append('userId', user.userId);
+        fd.append('city', city);
+        interests.forEach(i => fd.append('interests', i));
+        if (fileInput.files[0]) fd.append('avatar', fileInput.files[0]);
+
+        const res  = await fetch('/api/profile/update', { method: 'POST', body: fd });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Update failed');
+        window.location.href = 'done.html';
+      } catch (err) {
+        if (errorEl) { errorEl.textContent = err.message; errorEl.classList.add('visible'); }
+        btn.disabled = false;
+        btn.textContent = 'Go to dashboard';
+      }
+    });
+  </script>
+</body>
+</html>

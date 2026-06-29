@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dobrodiy — My Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body class="db-body">
+<div class="db-shell">
+
+  <!-- ── LEFT NAV ── -->
+  <aside class="db-nav" role="navigation" aria-label="Primary navigation">
+    <div class="db-nav__brand">
+      <div class="db-nav__logo-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+      </div>
+      <div class="db-nav__brand-text"><strong>Dobrodiy</strong><span>Volunteer together</span></div>
+    </div>
+
+    <ul class="db-nav__list" role="list">
+      <li><a href="employee-dashboard.html" class="db-nav__link db-nav__link--active" aria-current="page">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        Dashboard
+      </a></li>
+      <li><a href="#" class="db-nav__link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        My Opportunities
+      </a></li>
+      <li><a href="#" class="db-nav__link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        Saved Charities
+      </a></li>
+      <div class="db-nav__divider" role="separator"></div>
+      <li><a href="profile.html" class="db-nav__link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/></svg>
+        Profile Settings
+      </a></li>
+    </ul>
+
+    <div class="db-nav__footer">
+      <a href="#" class="db-nav__logout" id="logoutLink">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+        Log out
+      </a>
+    </div>
+  </aside>
+
+  <!-- ── RIGHT COLUMN ── -->
+  <div class="db-main">
+
+    <!-- TOP PROFILE BAR -->
+    <header class="db-topbar">
+      <div class="db-topbar__left">
+        <div class="db-topbar__avatar" id="topbarAvatar" aria-label="Your profile photo">?</div>
+        <div class="db-topbar__info">
+          <h1 class="db-topbar__name" id="topbarName">Loading…</h1>
+          <div class="db-topbar__meta">
+            <span class="db-topbar__meta-item">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span id="topbarCity">—</span>
+            </span>
+          </div>
+          <div class="db-topbar__tags" id="topbarTags" aria-label="Volunteering interests"></div>
+        </div>
+      </div>
+      <div class="db-topbar__right">
+        <button class="db-bell" type="button" aria-label="Notifications">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          <span class="db-bell__badge" aria-hidden="true"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="db-content">
+
+      <!-- Welcome -->
+      <div class="db-welcome">
+        <div class="db-welcome__text">
+          <h2 class="db-welcome__heading"><span id="greetingText">Hello</span>, <span class="text-highlight" id="welcomeName">Volunteer</span>! 👋</h2>
+          <p class="db-welcome__sub">Here are your personalised opportunities for today.</p>
+        </div>
+        <div class="db-welcome__badge" aria-hidden="true">🌻</div>
+      </div>
+
+      <!-- Stats -->
+      <div class="db-stats" role="list" aria-label="Quick statistics">
+        <div class="db-stat" role="listitem">
+          <div class="db-stat__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="db-stat__value" data-count="0">0</div>
+          <div class="db-stat__label">Hours Volunteered</div>
+        </div>
+        <div class="db-stat" role="listitem">
+          <div class="db-stat__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/></svg>
+          </div>
+          <div class="db-stat__value" data-count="0">0</div>
+          <div class="db-stat__label">Active Applications</div>
+        </div>
+        <div class="db-stat" role="listitem">
+          <div class="db-stat__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          </div>
+          <div class="db-stat__value" data-count="3">3</div>
+          <div class="db-stat__label">Matched Opportunities</div>
+        </div>
+      </div>
+
+      <!-- Recommended opportunities -->
+      <div class="db-section-header">
+        <h3 class="db-section-title">Recommended for you</h3>
+        <a href="#" class="db-section-link" rel="noopener">See all →</a>
+      </div>
+
+      <div class="db-opp-grid">
+        <article class="db-opp-card">
+          <div class="db-opp-card__header">
+            <span class="db-opp-card__org">Dobro Foundation</span>
+            <span class="db-match-badge" aria-label="94 percent match">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+              94% match
+            </span>
+          </div>
+          <div class="db-opp-card__title">Animal shelter weekend volunteer day</div>
+          <div class="db-opp-card__tags">
+            <span class="db-pill">Animals</span><span class="db-pill">Weekend</span><span class="db-pill">Kyiv</span>
+          </div>
+          <div class="db-opp-card__footer">
+            <span class="db-opp-card__date">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+              July 5, 2026
+            </span>
+            <a href="#" class="db-btn-apply" rel="noopener">Apply →</a>
+          </div>
+        </article>
+
+        <article class="db-opp-card">
+          <div class="db-opp-card__header">
+            <span class="db-opp-card__org">Green Ukraine NGO</span>
+            <span class="db-match-badge" aria-label="88 percent match">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+              88% match
+            </span>
+          </div>
+          <div class="db-opp-card__title">City park cleanup — Holosiivskyi district</div>
+          <div class="db-opp-card__tags">
+            <span class="db-pill">Ecology</span><span class="db-pill">Outdoor</span><span class="db-pill">Kyiv</span>
+          </div>
+          <div class="db-opp-card__footer">
+            <span class="db-opp-card__date">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+              July 12, 2026
+            </span>
+            <a href="#" class="db-btn-apply" rel="noopener">Apply →</a>
+          </div>
+        </article>
+
+        <article class="db-opp-card">
+          <div class="db-opp-card__header">
+            <span class="db-opp-card__org">Bright Kids Foundation</span>
+            <span class="db-match-badge" aria-label="81 percent match">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+              81% match
+            </span>
+          </div>
+          <div class="db-opp-card__title">After-school tutoring for displaced children</div>
+          <div class="db-opp-card__tags">
+            <span class="db-pill">Education</span><span class="db-pill">Children</span><span class="db-pill">Remote</span>
+          </div>
+          <div class="db-opp-card__footer">
+            <span class="db-opp-card__date">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+              Ongoing
+            </span>
+            <a href="#" class="db-btn-apply" rel="noopener">Apply →</a>
+          </div>
+        </article>
+
+        <article class="db-opp-card">
+          <div class="db-opp-card__header">
+            <span class="db-opp-card__org">Care for Elderly UA</span>
+            <span class="db-match-badge" aria-label="76 percent match">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+              76% match
+            </span>
+          </div>
+          <div class="db-opp-card__title">Weekend visits to nursing home residents</div>
+          <div class="db-opp-card__tags">
+            <span class="db-pill">Elderly care</span><span class="db-pill">Lviv</span>
+          </div>
+          <div class="db-opp-card__footer">
+            <span class="db-opp-card__date">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+              August 2, 2026
+            </span>
+            <a href="#" class="db-btn-apply" rel="noopener">Apply →</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Activity empty state -->
+      <div class="db-section-header">
+        <h3 class="db-section-title">Your activity</h3>
+      </div>
+      <div class="db-empty" role="status" aria-live="polite">
+        <div class="db-empty__icon" aria-hidden="true">🌱</div>
+        <div class="db-empty__title">No activity yet</div>
+        <p class="db-empty__text">Apply to your first opportunity above and start building your volunteer story.</p>
+        <a href="#" class="db-btn-apply" style="margin-top:8px" rel="noopener">Browse all opportunities</a>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var stored = JSON.parse(localStorage.getItem('dobrodiy_user') || '{}');
+  if (!stored.userId) { window.location.href = 'index.html'; return; }
+
+  var h = new Date().getHours();
+  document.getElementById('greetingText').textContent =
+    h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
+
+  document.getElementById('logoutLink').addEventListener('click', function (e) {
+    e.preventDefault();
+    localStorage.removeItem('dobrodiy_user');
+    window.location.href = 'index.html';
+  });
+
+  fetch('/api/profile/' + stored.userId)
+    .then(function (r) { if (!r.ok) throw new Error('err'); return r.json(); })
+    .then(function (d) {
+      if (d.role === 'charity') { window.location.href = 'charity-dashboard.html'; return; }
+
+      var fn = d.first_name || '', sn = d.surname || '';
+      var name = [fn, sn].filter(Boolean).join(' ') || d.email;
+      var initials = ((fn[0] || '') + (sn[0] || '')).toUpperCase() || '?';
+
+      var avatarEl = document.getElementById('topbarAvatar');
+      if (d.avatar) {
+        var img = document.createElement('img');
+        img.src = d.avatar; img.alt = 'Profile photo';
+        avatarEl.textContent = ''; avatarEl.appendChild(img);
+      } else { avatarEl.textContent = initials; }
+
+      document.getElementById('topbarName').textContent  = name;
+      document.getElementById('topbarCity').textContent  = d.city || 'City not set';
+      document.getElementById('welcomeName').textContent = fn || 'Volunteer';
+
+      var tagsEl = document.getElementById('topbarTags');
+      tagsEl.innerHTML = (d.interests && d.interests.length)
+        ? d.interests.map(function (i) { return '<span class="db-tag">' + i + '</span>'; }).join('')
+        : '<span style="font-size:0.8rem;color:var(--color-text-muted)">No interests set</span>';
+
+      setTimeout(function () {
+        document.querySelectorAll('[data-count]').forEach(function (el) {
+          var target = parseInt(el.dataset.count, 10);
+          if (!target) return;
+          var cur = 0, iv = setInterval(function () {
+            el.textContent = ++cur; if (cur >= target) clearInterval(iv);
+          }, 120);
+        });
+      }, 400);
+    })
+    .catch(function () { localStorage.removeItem('dobrodiy_user'); window.location.href = 'index.html'; });
+}());
+</script>
+</body>
+</html>

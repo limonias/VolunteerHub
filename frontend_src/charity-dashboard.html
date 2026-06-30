@@ -249,7 +249,7 @@
     window.location.href = 'index.html';
   });
 
-  fetch('/api/profile/' + stored.userId)
+  fetch('/api/profile/me', { credentials: 'same-origin' })
     .then(function (r) { if (!r.ok) throw new Error('err'); return r.json(); })
     .then(function (d) {
       if (d.role === 'volunteer') { window.location.href = 'employee-dashboard.html'; return; }

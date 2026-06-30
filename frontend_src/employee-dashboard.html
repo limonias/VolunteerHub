@@ -234,7 +234,7 @@
     window.location.href = 'index.html';
   });
 
-  fetch('/api/profile/' + stored.userId)
+  fetch('/api/profile/me', { credentials: 'same-origin' })
     .then(function (r) { if (!r.ok) throw new Error('err'); return r.json(); })
     .then(function (d) {
       if (d.role === 'charity') { window.location.href = 'charity-dashboard.html'; return; }
@@ -255,7 +255,15 @@
       document.getElementById('welcomeName').textContent = fn || 'Volunteer';
 
       var tagsEl = document.getElementById('topbarTags');
-      tagsEl.innerHTML = (d.interests && d.interests.length)
+      tagsEl.textContent = '';
+      if (d.interests && d.interests.length) {
+        d.interests.forEach(function (item) {
+          var span = document.createElement('span');
+          span.className = 'interest-tag';
+          span.textContent = item;
+          tagsEl.appendChild(span);
+        });
+      }
         ? d.interests.map(function (i) { return '<span class="db-tag">' + i + '</span>'; }).join('')
         : '<span style="font-size:0.8rem;color:var(--color-text-muted)">No interests set</span>';
 

@@ -6,7 +6,6 @@ from datetime import datetime, timedelta, timezone
 from django.conf import settings as djs
 from django.contrib.auth.hashers import make_password
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 from .models import User, Charity, VolunteerProfile, VolunteerInterest, VerificationCode
@@ -37,8 +36,31 @@ def _parse_json(request):
         return None
 
 
+def _get_authenticated_user(request):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return None
+    try:
+        return User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return None
+
+
+def _require_authenticated_user(request):
+    user = _get_authenticated_user(request)
+    if not user:
+        return None, JsonResponse({"error": "Authentication required"}, status=401)
+    return user, None
+
+
+def _store_session_user(request, user):
+    request.session["user_id"] = user.id
+    request.session["user_role"] = user.role
+    request.session["verified"] = user.verified
+    request.session.modified = True
+
+
 # POST /api/auth/register/volunteer
-@csrf_exempt
 @require_POST
 def register_volunteer(request):
     data = _parse_json(request)
@@ -86,15 +108,15 @@ def register_volunteer(request):
     print(f"  Code  : {code}")
     print(f"{'='*40}\n")
 
+    _store_session_user(request, user)
+
     return JsonResponse({
         "message": "Registration successful. Check the server console for the code.",
         "userId": user.id,
-        "devCode": code,
     }, status=201)
 
 
 # POST /api/auth/register/charity
-@csrf_exempt
 @require_POST
 def register_charity(request):
     org       = (request.POST.get("org")       or "").strip()
@@ -147,31 +169,29 @@ def register_charity(request):
     print(f"  Code  : {code}")
     print(f"{'='*40}\n")
 
+    _store_session_user(request, user)
+
     return JsonResponse({
         "message": "Registration successful. Check the server console for the code.",
         "userId": user.id,
-        "devCode": code,
     }, status=201)
 
 
 # POST /api/auth/verify
-@csrf_exempt
 @require_POST
 def verify_email(request):
     data = _parse_json(request)
     if data is None:
         return JsonResponse({"error": "Invalid JSON"}, status=400)
 
-    user_id = data.get("userId")
-    code    = str(data.get("code", "")).strip()
+    code = str(data.get("code", "")).strip()
 
-    if not user_id or not code:
-        return JsonResponse({"error": "userId and code are required"}, status=400)
+    if not code:
+        return JsonResponse({"error": "code is required"}, status=400)
 
-    try:
-        user = User.objects.get(id=user_id)
-    except User.DoesNotExist:
-        return JsonResponse({"error": "User not found"}, status=404)
+    user, auth_error = _require_authenticated_user(request)
+    if auth_error:
+        return auth_error
 
     record = VerificationCode.objects.filter(user=user, code=code, used=False).order_by("-id").first()
     if not record:
@@ -183,24 +203,23 @@ def verify_email(request):
     user.save(update_fields=["verified"])
     record.used = True
     record.save(update_fields=["used"])
+    request.session["verified"] = True
+    request.session.modified = True
     return JsonResponse({"message": "Email verified successfully", "role": user.role})
 
 
 # POST /api/auth/resend
-@csrf_exempt
 @require_POST
 def resend_code(request):
     data = _parse_json(request)
     if data is None:
         return JsonResponse({"error": "Invalid JSON"}, status=400)
 
-    user_id = data.get("userId")
-    if not user_id:
-        return JsonResponse({"error": "userId is required"}, status=400)
+    user, auth_error = _require_authenticated_user(request)
+    if auth_error:
+        return auth_error
 
-    try:
-        user = User.objects.get(id=user_id, verified=False)
-    except User.DoesNotExist:
+    if user.verified:
         return JsonResponse({"error": "User not found or already verified"}, status=404)
 
     code = _gen_code()
@@ -215,25 +234,19 @@ def resend_code(request):
     print(f"  Code  : {code}")
     print(f"{'='*40}\n")
 
-    return JsonResponse({"message": "A new code has been sent", "devCode": code})
+    return JsonResponse({"message": "A new code has been sent"})
 
 
 # POST /api/profile/update
-@csrf_exempt
 @require_POST
 def update_profile(request):
-    user_id     = request.POST.get("userId")
+    user, auth_error = _require_authenticated_user(request)
+    if auth_error:
+        return auth_error
+
     city        = (request.POST.get("city") or "").strip() or None
     interests   = request.POST.getlist("interests")
     avatar_file = request.FILES.get("avatar")
-
-    if not user_id:
-        return JsonResponse({"error": "userId is required"}, status=400)
-
-    try:
-        user = User.objects.get(id=user_id)
-    except User.DoesNotExist:
-        return JsonResponse({"error": "User not found"}, status=404)
 
     if avatar_file:
         err = _validate_image(avatar_file, "avatar")
@@ -255,12 +268,27 @@ def update_profile(request):
     return JsonResponse({"message": "Profile updated successfully"})
 
 
+# GET /api/profile/me
+def get_my_profile(request):
+    user, auth_error = _require_authenticated_user(request)
+    if auth_error:
+        return auth_error
+
+    return _serialize_profile(user)
+
+
 # GET /api/profile/<user_id>
 def get_profile(request, user_id):
-    try:
-        user = User.objects.get(id=user_id)
-    except User.DoesNotExist:
-        return JsonResponse({"error": "User not found"}, status=404)
+    user, auth_error = _require_authenticated_user(request)
+    if auth_error:
+        return auth_error
+    if user.id != user_id:
+        return JsonResponse({"error": "Forbidden"}, status=403)
+
+    return _serialize_profile(user)
+
+
+def _serialize_profile(user):
 
     data = {
         "id": user.id, "role": user.role, "email": user.email,

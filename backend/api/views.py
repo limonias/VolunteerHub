@@ -1,10 +1,12 @@
 ﻿import json
 import os
 import random
+import re
 from datetime import datetime, timedelta, timezone
 
 from django.conf import settings as djs
 from django.contrib.auth.hashers import make_password
+from django.core.cache import cache
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
@@ -60,6 +62,29 @@ def _store_session_user(request, user):
     request.session.modified = True
 
 
+def _is_strong_password(password):
+    if len(password) < 12:
+        return False
+    if not re.search(r"[A-Z]", password):
+        return False
+    if not re.search(r"[a-z]", password):
+        return False
+    if not re.search(r"\d", password):
+        return False
+    if not re.search(r"[^A-Za-z0-9]", password):
+        return False
+    return True
+
+
+def _check_rate_limit(request, key_prefix):
+    key = f"{key_prefix}:{request.META.get('REMOTE_ADDR', 'unknown')}"
+    count = cache.get(key, 0)
+    if count >= djs.RATE_LIMIT_REQUESTS:
+        return False
+    cache.set(key, count + 1, djs.RATE_LIMIT_WINDOW_SECONDS)
+    return True
+
+
 # POST /api/auth/register/volunteer
 @require_POST
 def register_volunteer(request):
@@ -74,10 +99,13 @@ def register_volunteer(request):
     phone      = (data.get("phone")     or "").strip() or None
     age_raw    = data.get("age")
 
+    if not _check_rate_limit(request, "register_volunteer"):
+        return JsonResponse({"error": "Too many registration attempts. Please try again later."}, status=429)
+
     if not all([first_name, surname, email, password]):
         return JsonResponse({"error": "First name, surname, email and password are required"}, status=400)
-    if len(password) < 8:
-        return JsonResponse({"error": "Password must be at least 8 characters long"}, status=400)
+    if not _is_strong_password(password):
+        return JsonResponse({"error": "Password must be at least 12 characters and include uppercase, lowercase, a number, and a symbol"}, status=400)
 
     age = None
     if age_raw not in (None, ""):
@@ -129,12 +157,15 @@ def register_charity(request):
     cp_email  = (request.POST.get("cpEmail")   or "").strip() or None
     logo_file = request.FILES.get("logo")
 
+    if not _check_rate_limit(request, "register_charity"):
+        return JsonResponse({"error": "Too many registration attempts. Please try again later."}, status=429)
+
     if not all([org, edrpou, org_email, password]):
         return JsonResponse({"error": "Organisation name, EDRPOU, email and password are required"}, status=400)
     if not edrpou.isdigit() or len(edrpou) != 8:
         return JsonResponse({"error": "EDRPOU must be an 8-digit number"}, status=400)
-    if len(password) < 8:
-        return JsonResponse({"error": "Password must be at least 8 characters long"}, status=400)
+    if not _is_strong_password(password):
+        return JsonResponse({"error": "Password must be at least 12 characters and include uppercase, lowercase, a number, and a symbol"}, status=400)
 
     if logo_file:
         err = _validate_image(logo_file, "logo")
